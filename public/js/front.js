@@ -2064,6 +2064,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -38593,17 +38601,27 @@ var render = function () {
       _c("h1", [_vm._v("Posts list")]),
       _vm._v(" "),
       _vm._l(_vm.posts, function (post) {
-        return _c("div", { key: post.id, staticClass: "card mt-4" }, [
-          _c("h5", { staticClass: "card-header" }, [
-            _vm._v(_vm._s(post.title)),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(_vm._s(post.content)),
-            ]),
-          ]),
-        ])
+        return _c(
+          "div",
+          { key: post.id, staticClass: "list-group" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "list-group-item list-group-item-action my-1",
+                attrs: { to: { name: "posts", params: { slug: post.slug } } },
+              },
+              [
+                _c("h5", [_vm._v(_vm._s(post.title))]),
+                _vm._v(" "),
+                _c("span", { staticClass: "badge badge-primary" }, [
+                  _vm._v(_vm._s(post.category.name)),
+                ]),
+              ]
+            ),
+          ],
+          1
+        )
       }),
     ],
     2
