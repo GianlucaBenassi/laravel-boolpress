@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="container mt-5">
+        <!-- <div class="container mt-5">
             <h1>Posts list</h1>
 
             <div class="card mt-4" v-for="post in posts" :key="post.id">
@@ -10,24 +10,25 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
+        <router-view></router-view>
     </main>
 </template>
 
 <script>
 export default {
     name: 'Main',
-    data() {
-        return {
-            posts: []
-        }
-    },
-    created() {
-        axios.get('api/posts')
-            .then((response) => {
-                this.posts = response.data;
-            })
-    }
+    // data() {
+    //     return {
+    //         posts: []
+    //     }
+    // },
+    // created() {
+    //     axios.get('api/posts')
+    //         .then((response) => {
+    //             this.posts = response.data;
+    //         })
+    // }
 }
 </script>
 
