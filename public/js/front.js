@@ -2010,30 +2010,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Main' // data() {
-  //     return {
-  //         posts: []
-  //     }
-  // },
-  // created() {
-  //     axios.get('api/posts')
-  //         .then((response) => {
-  //             this.posts = response.data;
-  //         })
-  // }
-
+  name: 'Main'
 });
 
 /***/ }),
@@ -2051,8 +2029,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Home'
+  name: 'Home',
+  data: function data() {
+    return {
+      posts: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('api/posts').then(function (response) {
+      _this.posts = response.data;
+    });
+  }
 });
 
 /***/ }),
@@ -37814,7 +37814,28 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("homepage")])
+  return _c(
+    "div",
+    { staticClass: "container mt-5" },
+    [
+      _c("h1", [_vm._v("Posts list")]),
+      _vm._v(" "),
+      _vm._l(_vm.posts, function (post) {
+        return _c("div", { key: post.id, staticClass: "card mt-4" }, [
+          _c("h5", { staticClass: "card-header" }, [
+            _vm._v(_vm._s(post.title)),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("p", { staticClass: "card-text" }, [
+              _vm._v(_vm._s(post.content)),
+            ]),
+          ]),
+        ])
+      }),
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
