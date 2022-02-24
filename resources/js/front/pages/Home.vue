@@ -21,7 +21,7 @@ export default {
         }
     },
     created() {
-        axios.get('api/posts')
+        axios.get('/api/posts')
             .then((response) => {
                 this.posts = response.data;
             })
