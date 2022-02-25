@@ -11,6 +11,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav w-100">
                         <li class="nav-item">
+                            <router-link class="nav-link" :to="{ name: 'categories' }">Categories</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link class="nav-link" :to="{ name: 'about' }">About</router-link>
                         </li>
                         <li class="nav-item ml-auto">
