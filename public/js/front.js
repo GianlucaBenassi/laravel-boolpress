@@ -2169,6 +2169,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   data: function data() {
@@ -38868,6 +38884,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _vm._v("\\\n\n    "),
     _c("h1", { staticClass: "text-center my-5" }, [
       _vm._v(_vm._s(_vm.post.title)),
     ]),
@@ -38890,9 +38907,40 @@ var render = function () {
       }),
       0
     ),
+    _vm._v(" "),
+    _c("h4", { staticClass: "mt-5" }, [_vm._v("Add comment")]),
+    _vm._v(" "),
+    _vm._m(0),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "name", placeholder: "Add your name" },
+        }),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { id: "content", rows: "5", placeholder: "Add content" },
+        }),
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Send")]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 
