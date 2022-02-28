@@ -2185,20 +2185,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   data: function data() {
     return {
-      post: {}
+      post: {},
+      formData: {
+        name: "",
+        content: "",
+        post_id: null
+      },
+      commentSend: false,
+      commentErrors: {}
     };
   },
+  methods: {
+    addComment: function addComment() {
+      var _this = this;
+
+      axios.post('/api/comments', this.formData).then(function (response) {
+        _this.formData.name = '';
+        _this.formData.content = '';
+        _this.commentSend = true;
+        _this.commentErrors = {};
+      })["catch"](function (error) {
+        _this.commentErrors = error.response.data.errors;
+        _this.commentSend = false;
+      });
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("/api/posts/".concat(this.$route.params.slug)).then(function (response) {
-      _this.post = response.data;
+      _this2.post = response.data;
+      _this2.formData.post_id = _this2.post.id;
     })["catch"](function (error) {
-      _this.$router.push({
+      _this2.$router.push({
         name: 'page-404'
       });
     });
@@ -38884,7 +38919,6 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._v("\\\n\n    "),
     _c("h1", { staticClass: "text-center my-5" }, [
       _vm._v(_vm._s(_vm.post.title)),
     ]),
@@ -38910,37 +38944,126 @@ var render = function () {
     _vm._v(" "),
     _c("h4", { staticClass: "mt-5" }, [_vm._v("Add comment")]),
     _vm._v(" "),
-    _vm._m(0),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function ($event) {
+            $event.preventDefault()
+            return _vm.addComment()
+          },
+        },
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.name,
+                expression: "formData.name",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "name", placeholder: "Add your name" },
+            domProps: { value: _vm.formData.name },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "name", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.content,
+                expression: "formData.content",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { id: "content", rows: "5", placeholder: "Add content" },
+            domProps: { value: _vm.formData.content },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "content", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.commentSend,
+                expression: "commentSend",
+              },
+            ],
+            staticClass: "alert alert-success",
+            attrs: { role: "alert" },
+          },
+          [
+            _c("span", [_vm._v("Comment sent and being approved!")]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "ml-2 mb-1 close",
+                attrs: { type: "button" },
+                on: {
+                  click: function ($event) {
+                    _vm.commentSend = false
+                  },
+                },
+              },
+              [_c("span", [_vm._v("×")])]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _vm.commentErrors.content
+          ? _c(
+              "ul",
+              { staticClass: "list-group mb-3" },
+              _vm._l(_vm.commentErrors.content, function (error, index) {
+                return _c(
+                  "li",
+                  {
+                    key: index,
+                    staticClass: "list-group-item list-group-item-warning",
+                  },
+                  [_vm._v(_vm._s(error))]
+                )
+              }),
+              0
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Send")]
+        ),
+      ]
+    ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", [
-      _c("div", { staticClass: "form-group" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "name", placeholder: "Add your name" },
-        }),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("textarea", {
-          staticClass: "form-control",
-          attrs: { id: "content", rows: "5", placeholder: "Add content" },
-        }),
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Send")]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -55015,14 +55138,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/front/pages/Post.vue ***!
   \*******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Post_vue_vue_type_template_id_09d87bcf_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Post.vue?vue&type=template&id=09d87bcf&scoped=true& */ "./resources/js/front/pages/Post.vue?vue&type=template&id=09d87bcf&scoped=true&");
 /* harmony import */ var _Post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Post.vue?vue&type=script&lang=js& */ "./resources/js/front/pages/Post.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Post_vue_vue_type_style_index_0_id_09d87bcf_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post.vue?vue&type=style&index=0&id=09d87bcf&lang=scss&scoped=true& */ "./resources/js/front/pages/Post.vue?vue&type=style&index=0&id=09d87bcf&lang=scss&scoped=true&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Post_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _Post_vue_vue_type_style_index_0_id_09d87bcf_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post.vue?vue&type=style&index=0&id=09d87bcf&lang=scss&scoped=true& */ "./resources/js/front/pages/Post.vue?vue&type=style&index=0&id=09d87bcf&lang=scss&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -55054,7 +55178,7 @@ component.options.__file = "resources/js/front/pages/Post.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/front/pages/Post.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
