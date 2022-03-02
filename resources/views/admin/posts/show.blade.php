@@ -62,6 +62,73 @@
                 </div>
             </div>
         </div>
+
+        <h3 class="mt-5">Comments list:</h3>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Approved</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($comments as $comment)
+                    <tr>
+                        <th scope="row">{{$comment->id}}</th>
+
+                        @if ($comment->name)  
+                            <td>{{$comment->name}}</td>
+                        @else
+                            <td>Guest</td>
+                        @endif
+
+                        <td>{{$comment->content}}</td>
+
+                        <td>
+                            @if (!$comment->approved)
+                                <form action="{{route('comments.update', $comment->id)}}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-primary">Approve</button>
+                                </form>
+                            @else
+                                <h4><span class="badge badge-success">Approved</span></h4>
+                            @endif
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-danger ml-auto" data-toggle="modal" data-target="#commentDelete{{$comment->id}}">Delete</button>
+
+                            {{-- comment modal --}}
+                            <div class="modal fade" id="commentDelete{{$comment->id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Are you sure to delete this comment?</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            {{-- delete form --}}
+                                            <form action="{{route('comments.destroy', $comment->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
         
     </div>
 @endsection

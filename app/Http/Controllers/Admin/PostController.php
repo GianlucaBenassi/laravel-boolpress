@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -92,7 +93,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view("admin.posts.show", compact("post"));
+        $comments = Comment::where("post_id", $post->id)->get();
+        return view("admin.posts.show", compact("post", "comments"));
     }
 
     /**

@@ -20,6 +20,14 @@
                     @endif
                     <span class="d-block">Created: {{$post->created_at}}</span>
 
+                    @php
+                        $postNotApproved = $post->comments->filter(function ($value) {
+                            return $value->approved == 0;
+                        });
+                    @endphp
+
+                    <span class="d-block">Comments to approve: <strong>{{count($postNotApproved)}}</strong></span>
+
                 </div>
 
                 <div class="card-footer d-flex">
