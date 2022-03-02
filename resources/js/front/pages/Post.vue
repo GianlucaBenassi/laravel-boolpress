@@ -35,6 +35,16 @@
             <button type="submit" class="btn btn-primary">Send</button>
         </form>
 
+        <!-- comments list -->
+        <h4 class="mt-5">Comments list</h4>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="comment in post.comments" :key="comment.id">
+                <span v-if="comment.name"><strong>{{comment.name}}</strong></span>
+                <span v-else><strong>Guest</strong></span>
+                <p class="mt-2 mb-0">{{comment.content}}</p>
+            </li>
+        </ul>
+
 
     </div>
 </template>

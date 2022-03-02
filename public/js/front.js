@@ -2197,6 +2197,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   data: function data() {
@@ -39060,6 +39070,25 @@ var render = function () {
           [_vm._v("Send")]
         ),
       ]
+    ),
+    _vm._v(" "),
+    _c("h4", { staticClass: "mt-5" }, [_vm._v("Comments list")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "list-group" },
+      _vm._l(_vm.post.comments, function (comment) {
+        return _c("li", { key: comment.id, staticClass: "list-group-item" }, [
+          comment.name
+            ? _c("span", [_c("strong", [_vm._v(_vm._s(comment.name))])])
+            : _c("span", [_c("strong", [_vm._v("Guest")])]),
+          _vm._v(" "),
+          _c("p", { staticClass: "mt-2 mb-0" }, [
+            _vm._v(_vm._s(comment.content)),
+          ]),
+        ])
+      }),
+      0
     ),
   ])
 }
