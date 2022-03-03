@@ -38,7 +38,7 @@ class CommentController extends Controller
         $newComment->save();
 
         // send email
-        Mail::to("master@mysite.com")->send(new CommentMail());
+        Mail::to("master@mysite.com")->send(new CommentMail($newComment->post));
 
         // response
         return response()->json([
