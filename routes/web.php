@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(["verify" => true]);
 
 // private area
-Route::prefix("admin")->namespace("Admin")->middleware("auth")->group(function() {
+Route::prefix("admin")->namespace("Admin")->middleware("verified")->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource("posts", "PostController");
     Route::resource("categories", "CategoryController");
